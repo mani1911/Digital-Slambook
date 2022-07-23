@@ -2,7 +2,8 @@ import Express from "express";
 import bodyParser from "body-parser";
 import cors from 'cors';
 import mongoose from "mongoose";
-import router from "./routes/auth.js"
+import router from "./routes/auth.js";
+import session from "express-session";
 
 const app = Express();
 const Port = process.env.Port || 3002;
@@ -13,6 +14,7 @@ app.use(bodyParser.urlencoded({
     extended: true
   }));
 app.use(Express.json());
+app.use(session({secret : 'mani1911',resave: false,saveUninitialized: true,cookie: { secure: true }}));
 app.use('/user', router);
 
 mongoose.connect(URL, {useNewUrlParser : true, useUnifiedTopology : true})

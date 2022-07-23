@@ -1,9 +1,7 @@
 import express from 'express';
 import bcrypt from 'bcrypt';
 import User from '../models/user.js';
-
 const router = express.Router();
-
 router.post('/reg', async (req,res)=>{
     try{
         const { id,name, password } = req.body;
@@ -13,7 +11,6 @@ router.post('/reg', async (req,res)=>{
         if(existing.length > 0){
             message = 'User Already Exists';
             console.log(message);
-            return;
         }
         else{
             const hash = await bcrypt.hash(password,12);
@@ -30,7 +27,6 @@ router.post('/reg', async (req,res)=>{
     }
 });
 
-
 router.post('/login', async (req,res)=>{
     const { name , password } = req.body;
     try{
@@ -40,6 +36,8 @@ router.post('/login', async (req,res)=>{
         if(user){
             const isValidUser = await bcrypt.compare(password, user.password);
             if(isValidUser){
+                req.session.user_id = user._id;
+                console.log(req.session.user_id)
                 message = 'Logged in Successfully';
                 status = 1;
             }
@@ -53,6 +51,6 @@ router.post('/login', async (req,res)=>{
         console.log(e.message)
     }
 
-})
+});
 
 export default router;
