@@ -3,6 +3,7 @@ import axios from "axios";
 import {useNavigate} from 'react-router-dom'
 import { useDispatch } from "react-redux";
 import {login} from '../features/userSlice';
+import {Link} from 'react-router-dom';
 const Login = ()=>{
     let navigate = useNavigate();
     let [username, setUserName] = useState('');
@@ -17,14 +18,15 @@ const Login = ()=>{
         const res = await axios.post(URL, {username, password});
         console.log(res)
         if(res.data.user){
-            navigate(`/profile/:${res.data.user._id}`, {state : res.data.user})
+            navigate(`/profile/:${res.data.user._id}`)
         }
         dispatch(
             login({
                 ...res.data.user,
                 loggedIn : true,
             })
-        )
+        );
+        
         setUserName('');
         setPassword('');
     }
@@ -39,6 +41,7 @@ const Login = ()=>{
             <label>Password</label>
             <input value = {password} type = "password" placeholder="Password" onChange = {e=>setPassword(e.target.value)}></input>
         </div>
+        <Link to = "/register"><h5>New User? Register Here.</h5></Link>
         <button type="submit">Login</button>
     </form>
 </>

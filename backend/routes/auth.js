@@ -56,4 +56,18 @@ router.post('/login', async (req,res)=>{
 
 });
 
+router.post('/logout', (req,res)=>{
+    try{
+        if(req.session.user_id){
+            req.session.user_id = null;
+            res.json('Logged out Successfully');
+        }
+    }
+    catch(e){
+        console.log(e.message);
+    }
+    res.json({message : 'Successfully Logged Out'});
+    
+})
+
 export default router;

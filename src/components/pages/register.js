@@ -1,6 +1,8 @@
 import React, { useState } from "react";
 import axios from 'axios';
+import {useNavigate} from 'react-router-dom';
 const Register = ()=>{
+    const navigate = useNavigate();
     let [username, setUserName] = useState('');
     let [password, setPassword] = useState('');
     let [name, setName] = useState('');
@@ -15,6 +17,7 @@ const Register = ()=>{
         setName('');
         setPassword('');
         setUserName('');
+        navigate('/login');
     }
     return <>
         <h4>Register</h4>

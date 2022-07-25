@@ -1,15 +1,17 @@
 import React from "react";
 import { Link } from "react-router-dom";
-import './header.css'
+import { useSelector } from "react-redux";
+import { selectUser } from "./features/userSlice";
+import Logout from '../components/logout';
+import classes from './header.module.css'
 const Header = ()=>{
-    return <nav className="nav">
-    <Link to = "/" className = "site-title">Slambook</Link>
+    const user = useSelector(selectUser);
+    return <nav className={classes.nav}>
+    <Link to = "/" className = {classes["site-title"]}>Slambook</Link>
     <ul>
-        <li className = "active">
-            <Link to = "/register">Register</Link>
-        </li>
         <li>
-            <Link to = "/login">Login</Link>
+            {!user.loggedIn? <Link to = "/login">Login</Link> : <Logout/>}
+            
         </li>
     </ul>
     </nav>
