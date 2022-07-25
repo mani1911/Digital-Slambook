@@ -1,17 +1,22 @@
 import mongoose from "mongoose";
 
 const userSchema = new mongoose.Schema({
-    id : {
+    name : {
         type : 'String',
         required : true
     },
-    name : {
-        type : 'String',
+    username : {
+        type : 'string',
         required : true
     },
     password : {
         type : 'String',
         required : true
+    },
+
+    image : {
+        data : Buffer,
+        contentType : String
     }
 });
 

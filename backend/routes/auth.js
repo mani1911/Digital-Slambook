@@ -1,11 +1,14 @@
 import express from 'express';
 import bcrypt from 'bcrypt';
+import multer from 'multer';
 import User from '../models/user.js';
 const router = express.Router();
+
+
 router.post('/reg', async (req,res)=>{
     try{
-        const { id,name, password } = req.body;
-        const existing = await User.find({name});
+        const { username, name, password } = req.body;
+        const existing = await User.find({username});
         let message = '';
         let status = 0;
         if(existing.length > 0){
@@ -14,7 +17,7 @@ router.post('/reg', async (req,res)=>{
         }
         else{
             const hash = await bcrypt.hash(password,12);
-            const newUser = new User({id,name,password : hash});
+            const newUser = new User({username,password : hash,name});
             await newUser.save();
             console.log(newUser);
             message = 'User Registered';
@@ -28,16 +31,16 @@ router.post('/reg', async (req,res)=>{
 });
 
 router.post('/login', async (req,res)=>{
-    const { name , password } = req.body;
+    const { username , password } = req.body;
     try{
-        const user = await User.findOne({name});
+        const user = await User.findOne({username});
         let message = '';
         let status = 0;
         if(user){
             const isValidUser = await bcrypt.compare(password, user.password);
             if(isValidUser){
                 req.session.user_id = user._id;
-                console.log(req.session.user_id)
+                console.log(req.session.user_id);
                 message = 'Logged in Successfully';
                 status = 1;
             }
@@ -45,7 +48,7 @@ router.post('/login', async (req,res)=>{
                 message = 'Incorrect Username or Password';
             }
         }
-        res.json({status,message})
+        res.json({status,message,user})
     }
     catch(e){
         console.log(e.message)
