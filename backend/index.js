@@ -3,6 +3,7 @@ import bodyParser from "body-parser";
 import cors from 'cors';
 import mongoose from "mongoose";
 import router from "./routes/auth.js";
+import { comments } from "./routes/comment.js";
 import session from "express-session";
 
 const app = Express();
@@ -16,6 +17,7 @@ app.use(bodyParser.urlencoded({
 app.use(Express.json());
 app.use(session({secret : 'mani1911',resave: false,saveUninitialized: true,cookie: { secure: true }}));
 app.use('/user', router);
+app.use('/comments', comments);
 
 mongoose.connect(URL, {useNewUrlParser : true, useUnifiedTopology : true})
     .then(()=>{

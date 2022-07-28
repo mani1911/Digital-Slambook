@@ -1,0 +1,23 @@
+.commentBox{
+    display: flex;
+    flex-direction: column;
+    border-bottom: 1px solid grey;
+    width: 60%;
+    margin-left: 1rem;
+}
+
+.user{
+    margin-top: 1.2rem;
+    font-weight: 700;
+    margin-right: auto;
+    font-size: large;
+    color : rgb(91, 91, 244);
+}
+
+.comment{
+    margin-top: 3px;
+    margin-right: auto;
+    margin-left: 2rem;
+    font-size: medium;
+    margin-bottom: 1.2rem;
+}

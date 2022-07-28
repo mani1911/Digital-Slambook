@@ -1,13 +1,13 @@
 import express from 'express';
 import bcrypt from 'bcrypt';
-import multer from 'multer';
+
 import User from '../models/user.js';
 const router = express.Router();
 
 
 router.post('/reg', async (req,res)=>{
     try{
-        const { username, name, password } = req.body;
+        const { username, name, password , description, department } = req.body;
         const existing = await User.find({username});
         let message = '';
         let status = 0;
@@ -17,7 +17,7 @@ router.post('/reg', async (req,res)=>{
         }
         else{
             const hash = await bcrypt.hash(password,12);
-            const newUser = new User({username,password : hash,name});
+            const newUser = new User({username,password : hash,name, description, department});
             await newUser.save();
             console.log(newUser);
             message = 'User Registered';
@@ -48,6 +48,7 @@ router.post('/login', async (req,res)=>{
                 message = 'Incorrect Username or Password';
             }
         }
+        console.log(user);
         res.json({status,message,user})
     }
     catch(e){

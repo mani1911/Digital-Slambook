@@ -14,10 +14,15 @@ const userSchema = new mongoose.Schema({
         required : true
     },
 
-    image : {
-        data : Buffer,
-        contentType : String
-    }
+    department : {
+        type : 'String',
+        requried : true
+    },
+    description : {
+        type : 'String',
+        required : 'true'
+    },
+    comments : [{type : mongoose.Schema.Types.ObjectId, ref : 'Comments'}]
 });
 
 const User = new mongoose.model('User', userSchema);

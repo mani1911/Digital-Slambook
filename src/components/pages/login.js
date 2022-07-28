@@ -18,7 +18,7 @@ const Login = ()=>{
         const res = await axios.post(URL, {username, password});
         console.log(res)
         if(res.data.user){
-            navigate(`/profile/:${res.data.user._id}`)
+            navigate(`/profile/:${res.data.user._id}`);
         }
         dispatch(
             login({

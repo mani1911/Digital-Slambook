@@ -1,0 +1,14 @@
+.grid{
+    display: grid;
+    grid-template-columns: 30% 70%;
+    height : 90vh;
+}
+
+.details{
+    margin-top: 2rem;
+    border-right: 1px solid grey;
+}
+
+.img{
+    flex : 20%;
+}

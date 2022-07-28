@@ -1,9 +1,11 @@
 import mongoose from "mongoose";
 
 const commentSchema = mongoose.Schema({
-    by : { type: mongoose.Schema.Types.ObjectId, ref: 'User' },
-    at : {type : mongoose.Schema.Types.ObjectId , ref : 'User'},
-    likes : 'Number'
+    user : {type : 'String', required : true},
+    userID : { type: 'String', required : true },
+    parentID : {type : 'String', required : true},
+    time : { type : Date, default: Date.now() },
+    comment : {type : 'String', required : true}
 });
 
 const Comments = new mongoose.model('Comments', commentSchema);
