@@ -10,13 +10,13 @@ const CommentList = (props)=>{
     useEffect(()=>{
         async function getComments(){
             let res = await axios.get(`http://localhost:3002/comments/${props.userID}`);
-            console.log(res.data.comments);
+            console.log(res.data.comments)
             getCommentList(res.data.comments);
         }
         getComments();
-    },[])
+    },[props.userID])
     return<div>
-        {commentList.map(comment => <Comment key = {comment.userID} comment = {comment.comment} user = {comment.user} />)}
+        {commentList.map(comment => <Comment key = {comment.userID} userID = {comment.userID} parentID = {comment.parentID} comment = {comment.comment} user = {comment.user} />)}
     </div>
 }
 

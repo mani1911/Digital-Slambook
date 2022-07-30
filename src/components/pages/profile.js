@@ -5,13 +5,19 @@ import {useNavigate} from 'react-router-dom';
 import img from '../assets/userImage.png';
 import classes from './profile.module.css';
 import CommentList from "./commentList";
+import axios from 'axios';
 const Profile = ()=>{
     const navigate = useNavigate();
     const user = useSelector(selectUser);
     useEffect(()=>{
+        async function check(){
+            const res = await axios.post('http://localhost:3002/user/isLogged');
+            console.log(res.data.user)
+        }
         if(user.loggedIn === false){
             navigate('/login');
         }
+        check();
     },[])
 
     return <div className = {classes.grid}>
@@ -22,9 +28,12 @@ const Profile = ()=>{
             <h3>{user.department}</h3>
             <h4>{user.description}</h4>
         </div>
-        <div className= {classes.comments}>
+        <div>
             <h2>Comments</h2>
-            <CommentList userID = {user._id}/>
+            <div className={classes.comments}>
+                <CommentList userID = {user._id}/>
+            </div>
+
         </div>
     </div>
 }

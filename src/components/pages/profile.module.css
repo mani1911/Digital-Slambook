@@ -1,3 +1,6 @@
+body{
+    color : white;
+}
 .grid{
     display: grid;
     grid-template-columns: 30% 70%;
@@ -11,4 +14,14 @@
 
 .img{
     flex : 20%;
+}
+
+.comments{
+    max-height: 80%;
+    overflow-y: scroll;
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+}
+.comments::-webkit-scrollbar { 
+    display: none;
 }

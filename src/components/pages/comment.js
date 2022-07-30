@@ -1,9 +1,13 @@
 import React from "react";
-import classes from './comment.module.css'
+import {Link} from "react-router-dom";
+import classes from './comment.module.css';
+import { useSelector } from "react-redux";
+import { selectUser } from "../features/userSlice";
 const Comment = (props)=>{
+    const user = useSelector(selectUser);
     return<>
         <div className={classes.commentBox}>
-            <div className={classes.user}>{props.user}</div>
+            <Link className = {classes.link} to = {`/profile/${props.userID}`}><div>{props.user}</div></Link>
             <div className={classes.comment}>{props.comment}</div>
         </div>
     </>

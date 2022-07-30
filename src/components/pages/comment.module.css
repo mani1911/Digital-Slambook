@@ -7,11 +7,9 @@
 }
 
 .user{
-    margin-top: 1.2rem;
-    font-weight: 700;
-    margin-right: auto;
-    font-size: large;
-    color : rgb(91, 91, 244);
+
+
+
 }
 
 .comment{
@@ -20,4 +18,13 @@
     margin-left: 2rem;
     font-size: medium;
     margin-bottom: 1.2rem;
+}
+
+.link{
+    text-decoration: none;
+    margin-top: 1.2rem;
+    font-weight: 700;
+    margin-right: auto;
+    font-size: large;
+    color : rgb(91, 91, 244);
 }

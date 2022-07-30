@@ -4,6 +4,7 @@ import {useNavigate} from 'react-router-dom'
 import { useDispatch } from "react-redux";
 import {login} from '../features/userSlice';
 import {Link} from 'react-router-dom';
+import classes from './login.module.css';
 const Login = ()=>{
     let navigate = useNavigate();
     let [username, setUserName] = useState('');
@@ -16,35 +17,40 @@ const Login = ()=>{
         e.preventDefault();
         if(username.length === 0 || password.length === 0) return;
         const res = await axios.post(URL, {username, password});
-        console.log(res)
-        if(res.data.user){
-            navigate(`/profile/:${res.data.user._id}`);
+        if(res.data.status === 1){
+            navigate(`/profile`);
+            dispatch(
+                login({
+                    ...res.data.user,
+                    loggedIn : true,
+                })
+            );
         }
-        dispatch(
-            login({
-                ...res.data.user,
-                loggedIn : true,
-            })
-        );
+        else{
+            alert(res.data.message)
+        }
         
         setUserName('');
         setPassword('');
     }
-    return<>
-    <h4>Login</h4>
+    return <div className="body">
+    <div className={classes.background}>
+        <div className={classes.shape}></div>
+        <div className={classes.shape}></div>
+    </div>
     <form onSubmit={submitHandler}>
-        <div>
-            <label>Username</label>
-            <input value = {username} type = "text" placeholder="Name" onChange = {e=>setUserName(e.target.value)}></input>
-        </div>
-        <div>
-            <label>Password</label>
-            <input value = {password} type = "password" placeholder="Password" onChange = {e=>setPassword(e.target.value)}></input>
-        </div>
-        <Link to = "/register"><h5>New User? Register Here.</h5></Link>
-        <button type="submit">Login</button>
+        <h3>Login Here</h3>
+
+        <label for="username">Username</label>
+        <input value ={username} type="text" placeholder="Username" id="username" onChange = {e=>setUserName(e.target.value)}/>
+
+        <label for="password">Password</label>
+        <input value = {password} type="password" placeholder="Password" id="password" onChange = {e=>setPassword(e.target.value)}/>
+
+        <button type = "submit">Log In</button>
+        <Link to = "/register"><div className={classes.link}>Not a User? Register Here</div></Link>
     </form>
-</>
-};
+    </div>
+}
 
 export default Login;

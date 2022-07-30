@@ -21,7 +21,13 @@ const Register = ()=>{
         setUserName('');
         setDept('');
         setDesc('');
-        navigate('/login');
+        if(res.data.status === 0){
+            alert(res.data.message)
+        }
+        else{
+            navigate('/login');
+        }
+
     }
     return <>
         <h4>Register</h4>
