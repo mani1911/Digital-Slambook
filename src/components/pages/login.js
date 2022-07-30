@@ -4,7 +4,7 @@ import {useNavigate} from 'react-router-dom'
 import { useDispatch } from "react-redux";
 import {login} from '../features/userSlice';
 import {Link} from 'react-router-dom';
-import classes from './login.module.css';
+import logincss from './login.module.css';
 const Login = ()=>{
     let navigate = useNavigate();
     let [username, setUserName] = useState('');
@@ -34,9 +34,7 @@ const Login = ()=>{
         setPassword('');
     }
     return <div className="body">
-    <div className={classes.background}>
-        <div className={classes.shape}></div>
-        <div className={classes.shape}></div>
+    <div className={logincss.background}>
     </div>
     <form onSubmit={submitHandler}>
         <h3>Login Here</h3>
@@ -48,7 +46,7 @@ const Login = ()=>{
         <input value = {password} type="password" placeholder="Password" id="password" onChange = {e=>setPassword(e.target.value)}/>
 
         <button type = "submit">Log In</button>
-        <Link to = "/register"><div className={classes.link}>Not a User? Register Here</div></Link>
+        <Link to = "/register"><div className={logincss.link}>Not a User? Register Here</div></Link>
     </form>
     </div>
 }
