@@ -15,11 +15,12 @@ h1{
 }
 
 h2{
-    font-style: italic;
+    font-size: 30px;
+    font-weight: 100;
     color: aquamarine;
 }
 h3{
-    font-style: italic;
+    
     color: rgb(148, 245, 212);
 }
 
@@ -40,4 +41,29 @@ h3{
 }
 .comments::-webkit-scrollbar { 
     display: none;
+}
+
+.icon{
+    width: 40px;
+    height: 20px;
+}
+.icon:hover{
+    filter: invert(27%) sepia(51%) saturate(2878%) hue-rotate(346deg) brightness(104%) contrast(97%);
+}
+
+.description{
+    height: 120px;
+    line-height: 1.8rem;
+    letter-spacing: 2px;
+    overflow-y: scroll;
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+}
+.description::-webkit-scrollbar { 
+    display: none;
+}
+
+.in{
+    display: flex;
+    justify-content: center;
 }

@@ -6,13 +6,13 @@ import img from '../assets/userImage.png';
 import classes from './profile.module.css';
 import CommentList from "./commentList";
 import axios from 'axios';
+import { BiEditAlt } from "react-icons/bi";
 const Profile = ()=>{
     const navigate = useNavigate();
     const user = useSelector(selectUser);
     useEffect(()=>{
         async function check(){
             const res = await axios.post('http://localhost:3002/user/isLogged');
-            console.log(res.data.user)
         }
         if(user.loggedIn === false){
             navigate('/login');
@@ -20,13 +20,20 @@ const Profile = ()=>{
         check();
     },[])
 
+    const editHandler = ()=>{
+        navigate('/profile/edit');
+    }
     return <div className = {classes.grid}>
         <div className = {classes.details}>
             <h1>User Profile</h1>
-            <img src= {img}/>
+            <div className={classes.im}>
+                <img src= {img}/>
+                <BiEditAlt onClick = {editHandler} className={classes.icon}/>
+            </div>
+
             <h2>{user.name}</h2>
             <h3>{user.department}</h3>
-            <h4>{user.description}</h4>
+            <h4 className= {classes.description}>{user.description}</h4>
         </div>
         <div>
             <h2>Comments</h2>

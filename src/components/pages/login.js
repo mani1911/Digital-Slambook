@@ -39,11 +39,11 @@ const Login = ()=>{
     <form onSubmit={submitHandler}>
         <h3>Login Here</h3>
 
-        <label for="username">Username</label>
-        <input value ={username} type="text" placeholder="Username" id="username" onChange = {e=>setUserName(e.target.value)}/>
+        <label>Username</label>
+        <input value ={username} type="text" placeholder="Username" onChange = {e=>setUserName(e.target.value)}/>
 
-        <label for="password">Password</label>
-        <input value = {password} type="password" placeholder="Password" id="password" onChange = {e=>setPassword(e.target.value)}/>
+        <label>Password</label>
+        <input value = {password} type="password" placeholder="Password" onChange = {e=>setPassword(e.target.value)}/>
 
         <button type = "submit">Log In</button>
         <Link to = "/register"><div className={logincss.link}>Not a User? Register Here</div></Link>

@@ -111,7 +111,17 @@ app.get('/user/:id', async (req,res)=>{
 
 })
 
-
+app.post('/user/edit', async (req,res)=>{
+    try{
+        const {id,name,department, description} = req.body;
+        const user = await User.findOneAndUpdate({_id :id}, {name, department, description});
+        console.log(user);
+        res.json({message : 'Changes Successfully Updated'});
+    }
+    catch(e){
+        console.log(e.message);
+    }
+})
 app.post('/user/isLogged', async (req,res)=>{
     try{
         const user = req.session.userID;

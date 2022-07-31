@@ -2,16 +2,20 @@ import React, { useState } from "react";
 import axios from 'axios';
 import regcss from './reg.module.css'
 import {useNavigate} from 'react-router-dom';
+import { useSelector } from "react-redux";
+import { selectUser } from "../features/userSlice";
+import { useDispatch } from "react-redux";
+import { login } from "../features/userSlice";
 
-const Register = ()=>{
+const EditProfile = ()=>{
+    const user = useSelector(selectUser);
+    const dispatch = useDispatch();
     const navigate = useNavigate();
-    let [username, setUserName] = useState('');
-    let [password, setPassword] = useState('');
-    let [name, setName] = useState('');
-    let [dept, setDept] = useState('');
-    let [desc, setDesc] = useState('');
+    let [name, setName] = useState(user.name);
+    let [dept, setDept] = useState(user.department);
+    let [desc, setDesc] = useState(user.description);
 
-    let URL = 'http://localhost:3002/user/reg';
+    let URL = 'http://localhost:3002/user/edit';
     const options = [
         {
           label: "CSE",
@@ -32,19 +36,22 @@ const Register = ()=>{
       ];
     const submitHandler = async e=>{
         e.preventDefault();
-        if(username.length === 0 || password.length === 0) return;
-        const res = await axios.post(URL, {username, password,name, description : desc, department : dept});
-        console.log(res.data.message);
-        setName('');
-        setPassword('');
-        setUserName('');
-        setDept('');
-        setDesc('');
+        const res = await axios.post(URL, {id : user._id, name, description : desc, department : dept});
+        dispatch(
+            login({
+                _id : user._id,
+                name,
+                username : user.username,
+                department : dept,
+                description : desc,
+                loggedIn : true,
+            })
+        );
         if(res.data.status === 0){
             alert(res.data.message)
         }
         else{
-            navigate('/login');
+            navigate('/profile');
         }
 
     }
@@ -52,16 +59,10 @@ const Register = ()=>{
     <div className={regcss.background}>
     </div>
     <form onSubmit={submitHandler}>
-        <h3>Register</h3>
+        <h3>Edit Profile</h3>
 
-        <label>Username</label>
-        <input value ={username} type="text" placeholder="Username" onChange = {e=>setUserName(e.target.value)}/>
-
-        <label>Username</label>
-        <input value ={name} type="text" placeholder="Fullname" onChange = {e=>setName(e.target.value)}/>
-
-        <label>Password</label>
-        <input value = {password} type="password" placeholder="Password" id="password" onChange = {e=>setPassword(e.target.value)}/>
+        <label>Name</label>
+        <input value ={name} type="text" placeholder="Fullname"     onChange = {e=>setName(e.target.value)}/>
 
         <label>Department</label>
         <select value = {dept} onChange = {e=>setDept(e.target.value)}>
@@ -73,9 +74,10 @@ const Register = ()=>{
         <label>Description</label>
         <textarea placeholder = "Describe Yourself" value = {desc} onChange = {e=> setDesc(e.target.value)}></textarea>
 
-        <button type = "submit">Register</button>
+        <button type = "submit">Save</button>
+        <button onClick={()=>{navigate('/profile')}}>Cancel</button>
     </form>
     </div>
 };
 
-export default Register;
+export default EditProfile;

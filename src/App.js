@@ -6,6 +6,7 @@ import Header from './components/header';
 import Home from './components/pages/home';
 import Profile from './components/pages/profile';
 import ViewProfile from './components/pages/viewprofile';
+import EditProfile from './components/pages/editprofile';
 function App() {
   return (
     <div className="App">
@@ -18,6 +19,7 @@ function App() {
           <Route path = "/login" element = {<Login/>} />
           <Route path = "/profile" element = {<Profile/>}/>
           <Route path = "/profile/:id" element = {<ViewProfile/>}/>
+          <Route path = "/profile/edit" element = {<EditProfile/>}/>
         </Routes>
       </BrowserRouter>
     </div>

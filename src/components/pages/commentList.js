@@ -10,7 +10,6 @@ const CommentList = (props)=>{
     useEffect(()=>{
         async function getComments(){
             let res = await axios.get(`http://localhost:3002/comments/${props.userID}`);
-            console.log(res.data.comments)
             getCommentList(res.data.comments);
         }
         getComments();

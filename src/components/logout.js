@@ -10,7 +10,6 @@ const Logout = ()=>{
     const logoutHandler = async ()=>{
         dispatch(logout());
         const res = await axios.post('http://localhost:3002/user/logout');
-        console.log(res.data.message);
 
     }
     return<div className= {classes.cont}>
