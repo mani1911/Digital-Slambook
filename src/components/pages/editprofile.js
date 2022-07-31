@@ -36,6 +36,10 @@ const EditProfile = ()=>{
       ];
     const submitHandler = async e=>{
         e.preventDefault();
+        if(!name || !desc ){
+          alert('Input Field cannot be empty');
+          return;
+        }
         const res = await axios.post(URL, {id : user._id, name, description : desc, department : dept});
         dispatch(
             login({

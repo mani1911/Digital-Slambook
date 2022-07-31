@@ -1,5 +1,8 @@
 
 .App {
   text-align: center;
+  height: 80%;
+  min-height: 80%;
+  max-height: 80%;
 }
 

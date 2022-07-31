@@ -37,6 +37,10 @@ mongoose.connect(URL, {useNewUrlParser : true, useUnifiedTopology : true})
     console.log(e.message);
 });
 
+app.get('/health', (req,res)=>{
+    res.send('Healthy');
+})
+
 app.post('/user/reg', async (req,res)=>{
     try{
         const { username, name, password , description, department } = req.body;
@@ -51,7 +55,6 @@ app.post('/user/reg', async (req,res)=>{
             const hash = await bcrypt.hash(password,12);
             const newUser = new User({username,password : hash,name, description, department});
             await newUser.save();
-            console.log(newUser);
             message = 'User Registered';
             status = 1;
         }
@@ -67,7 +70,6 @@ app.post('/user/login', async (req,res)=>{
     try{
         const user = await User.findOne({username});
         req.session.userID = user;
-        console.log(req.session.userID)
         let message = 'Incorrect Username or Password';
         let status = 0;
         if(user){
@@ -100,9 +102,7 @@ app.post('/user/logout', (req,res)=>{
 app.get('/user/:id', async (req,res)=>{
     try{
         const id = req.params.id;
-        console.log(id);
         const user = await User.find({_id : id});
-        console.log(user);
         res.json({user});
     }
     catch(e){
@@ -114,8 +114,11 @@ app.get('/user/:id', async (req,res)=>{
 app.post('/user/edit', async (req,res)=>{
     try{
         const {id,name,department, description} = req.body;
+        if(!id || !name || !department || !description){
+            return;
+        }
+
         const user = await User.findOneAndUpdate({_id :id}, {name, department, description});
-        console.log(user);
         res.json({message : 'Changes Successfully Updated'});
     }
     catch(e){
@@ -125,7 +128,6 @@ app.post('/user/edit', async (req,res)=>{
 app.post('/user/isLogged', async (req,res)=>{
     try{
         const user = req.session.userID;
-        console.log(req.session.userID);
         res.json({user});
     }
     catch(e){
@@ -137,6 +139,31 @@ app.get('/comments/:id',async (req,res)=>{
     const id = req.params.id;
     console.log(id)
     const comments = await Comments.find({parentID : id});
-    console.log(comments)
     res.json({comments});
 });
+
+app.post('/comments/new', async (req,res)=>{
+    try{
+        const {user, parentID, userID , comment} = req.body;
+        const newComment = new Comments({user, parentID, userID, comment, time : Date.now()});
+        await newComment.save();
+        res.json({message : 'Comment Added'});
+    }
+    catch(e){
+        console.log(e.message);
+    }
+
+
+})
+
+app.post('/comments/delete/:id', async(req,res)=>{
+    try{
+        const id = req.params.id;
+        await Comments.findOneAndDelete({_id : id});
+        res.json({message : 'Comment Deleted'});
+    }
+    catch(e){
+        console.log(e.message);
+    }
+
+})

@@ -1,20 +1,20 @@
 .commentBox{
+    box-sizing: border-box;
     display: flex;
     flex-direction: column;
-    border-bottom: 1px solid grey;
-    width: 60%;
     margin-left: 1rem;
-}
-
-.user{
-
-
 
 }
-
+.wrap{
+    box-sizing: border-box;
+    display: flex;
+    align-items: center;
+    width : 60%;
+    border-bottom: 1px solid grey;
+}
 .comment{
     margin-top: 3px;
-    margin-right: auto;
+    margin-right: 15px;
     margin-left: 2rem;
     font-size: medium;
     margin-bottom: 1.2rem;
@@ -27,4 +27,22 @@
     margin-right: auto;
     font-size: large;
     color : rgb(91, 91, 244);
+}
+
+.date{
+    color : rgb(255, 195, 83);
+    font-size: 15px;
+    margin-left: 10px;
+}
+
+.del{
+    height : 20px;
+    flex-shrink: 0;
+    margin-left: auto;
+    
+}
+.del:hover,
+.del:focus {
+    cursor: pointer;
+  fill: red;
 }

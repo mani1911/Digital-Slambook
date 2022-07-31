@@ -8,6 +8,7 @@ body {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   font-family: 'Advent Pro', sans-serif;
+  max-height: 100%;
 }
 
 
