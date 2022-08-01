@@ -114,3 +114,21 @@ select{
 select>option{
     color: black;
 }
+
+.description{
+    padding-top: 5px;
+    padding-bottom: 5px;
+    height : 80px;
+    resize: none;
+    overflow-y: scroll;
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+}
+.description::-webkit-scrollbar { 
+    display: none;
+}
+
+p{
+    font-size: 18px;
+    margin-top: 20px;
+}

@@ -83,3 +83,8 @@ a{
     margin-top: 1.7rem;
     text-decoration: none;
 }
+
+p{
+    margin-top: 20px;
+    font-size: 18px;
+}

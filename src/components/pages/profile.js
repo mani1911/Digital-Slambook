@@ -11,13 +11,9 @@ const Profile = ()=>{
     const navigate = useNavigate();
     const user = useSelector(selectUser);
     useEffect(()=>{
-        async function check(){
-            const res = await axios.post('http://localhost:3002/user/isLogged');
-        }
         if(user.loggedIn === false){
             navigate('/login');
         }
-        check();
     },[])
 
     const editHandler = ()=>{

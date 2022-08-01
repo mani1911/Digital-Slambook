@@ -10,6 +10,7 @@ const Register = ()=>{
     let [name, setName] = useState('');
     let [dept, setDept] = useState('');
     let [desc, setDesc] = useState('');
+    let [isLoading, setIsLoading] = useState(false);
 
     let URL = 'http://localhost:3002/user/reg';
     const options = [
@@ -31,20 +32,30 @@ const Register = ()=>{
         },
       ];
     const submitHandler = async e=>{
+        setIsLoading(true);
         e.preventDefault();
         if(username.length === 0 || password.length === 0) return;
         const res = await axios.post(URL, {username, password,name, description : desc, department : dept});
         console.log(res.data.message);
-        setName('');
-        setPassword('');
-        setUserName('');
-        setDept('');
-        setDesc('');
         if(res.data.status === 0){
             alert(res.data.message)
+            setName('');
+            setPassword('');
+            setUserName('');
+            setDept('');
+            setDesc('');
+            setIsLoading(false);
         }
         else{
+          setTimeout(()=>{
+            setName('');
+            setPassword('');
+            setUserName('');
+            setDept('');
+            setDesc('');
+            setIsLoading(false);
             navigate('/login');
+          },2000)
         }
 
     }
@@ -73,7 +84,7 @@ const Register = ()=>{
         <label>Description</label>
         <textarea placeholder = "Describe Yourself" value = {desc} onChange = {e=> setDesc(e.target.value)}></textarea>
 
-        <button type = "submit">Register</button>
+        {isLoading?<p>Loading...</p>:<button type = "submit">Register</button>}
     </form>
     </div>
 };

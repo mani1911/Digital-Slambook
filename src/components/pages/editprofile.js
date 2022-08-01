@@ -76,7 +76,7 @@ const EditProfile = ()=>{
           </select>
         
         <label>Description</label>
-        <textarea placeholder = "Describe Yourself" value = {desc} onChange = {e=> setDesc(e.target.value)}></textarea>
+        <textarea className={regcss.description} placeholder = "Describe Yourself" value = {desc} onChange = {e=> setDesc(e.target.value)}></textarea>
 
         <button type = "submit">Save</button>
         <button onClick={()=>{navigate('/profile')}}>Cancel</button>

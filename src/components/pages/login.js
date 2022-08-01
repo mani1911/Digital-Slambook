@@ -9,29 +9,34 @@ const Login = ()=>{
     let navigate = useNavigate();
     let [username, setUserName] = useState('');
     let [password, setPassword] = useState('');
+    let [isLoading , setIsLoading] = useState(false);
     let URL = 'http://localhost:3002/user/login';
 
     const dispatch = useDispatch();
 
     const submitHandler = async e=>{
+        setIsLoading(true);
         e.preventDefault();
         if(username.length === 0 || password.length === 0) return;
         const res = await axios.post(URL, {username, password});
         if(res.data.status === 1){
-            navigate(`/profile`);
-            dispatch(
-                login({
-                    ...res.data.user,
-                    loggedIn : true,
-                })
-            );
+            setTimeout(()=>{
+                setIsLoading(false);
+                navigate(`/profile`);
+                dispatch(
+                    login({
+                        ...res.data.user,
+                        loggedIn : true,
+                    })
+                );
+            },2000);
         }
         else{
+            setIsLoading(false);
+            setUserName('');
+            setPassword('');
             alert(res.data.message)
         }
-        
-        setUserName('');
-        setPassword('');
     }
     return <div className="body">
     <div className={logincss.background}>
@@ -45,7 +50,7 @@ const Login = ()=>{
         <label>Password</label>
         <input value = {password} type="password" placeholder="Password" onChange = {e=>setPassword(e.target.value)}/>
 
-        <button type = "submit">Log In</button>
+        {isLoading?<p>Logging In...</p>:<button type = "submit">Log In</button>}
         <Link to = "/register"><div className={logincss.link}>Not a User? Register Here</div></Link>
     </form>
     </div>

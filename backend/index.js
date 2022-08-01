@@ -6,22 +6,14 @@ import bcrypt from 'bcrypt';
 import User from "./models/user.js";
 import Comments from './models/comments.js';
 import cookieParser from "cookie-parser";
-import session, { MemoryStore } from "express-session";
 const app = Express();
 const Port = process.env.Port || 3002;
 const URL = 'mongodb+srv://mani19112003:mani19112003@cluster0.bj3en.mongodb.net/?retryWrites=true&w=majority';
 
-app.use(cookieParser());
-app.use(session({
-    name : 'app.sid',
-    secret: 'mani1911', 
-    resave : false, 
-    saveUninitialized : true,
-    store : new MemoryStore(),
-
-}));
-app.use(cors());
 app.use(Express.json());
+app.use(cors());
+
+app.use(cookieParser());
 
 app.use(bodyParser.urlencoded({
     extended: true
@@ -69,7 +61,6 @@ app.post('/user/login', async (req,res)=>{
     const { username , password } = req.body;
     try{
         const user = await User.findOne({username});
-        req.session.userID = user;
         let message = 'Incorrect Username or Password';
         let status = 0;
         if(user){
@@ -89,7 +80,6 @@ app.post('/user/login', async (req,res)=>{
 
 app.post('/user/logout', (req,res)=>{
     try{
-        req.session.destroy();
         res.json({message : 'Successfully Logged Out'});
         
     }
@@ -120,15 +110,6 @@ app.post('/user/edit', async (req,res)=>{
 
         const user = await User.findOneAndUpdate({_id :id}, {name, department, description});
         res.json({message : 'Changes Successfully Updated'});
-    }
-    catch(e){
-        console.log(e.message);
-    }
-})
-app.post('/user/isLogged', async (req,res)=>{
-    try{
-        const user = req.session.userID;
-        res.json({user});
     }
     catch(e){
         console.log(e.message);
