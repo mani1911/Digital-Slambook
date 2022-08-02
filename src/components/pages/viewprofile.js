@@ -30,6 +30,7 @@ const ViewProfile = (props)=>{
         <h1>User Profile</h1>
         <img src= {img}/>
         <h2>{userProfile.name}</h2>
+        <h3 className={vp.year}>{userProfile.year} - {userProfile.year + 4}</h3>
         <h3>{userProfile.department}</h3>
         <h4 className = {vp.description} >{userProfile.description}</h4>
     </div>

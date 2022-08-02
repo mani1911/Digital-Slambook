@@ -127,8 +127,3 @@ select>option{
 .description::-webkit-scrollbar { 
     display: none;
 }
-
-p{
-    font-size: 18px;
-    margin-top: 20px;
-}

@@ -9,6 +9,7 @@ const Header = ()=>{
     return <nav className={classes.nav}>
     <Link to = "/" className = {classes["site-title"]}>Slambook</Link>
     <ul>
+        <li><Link to = {`/`}>Search</Link></li>
         <li><Link to = {`/profile`}>Profile</Link></li>
         <li>
             {!user.loggedIn? <Link to = "/login">Login</Link> : <Logout/>}

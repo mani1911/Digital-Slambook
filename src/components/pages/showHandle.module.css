@@ -1,0 +1,38 @@
+.links{
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    text-decoration: none;
+    margin-top: 1.2rem;
+    font-weight: 700;
+    margin-right: auto;
+    font-size: large;
+    color : rgb(91, 91, 244);
+    padding: 10px;
+}
+
+.wrapp{
+    box-sizing: border-box;
+    display: flex;
+    align-items: center;
+    width : 100%;
+    border-bottom: 1px solid grey;
+
+}
+.name{
+    margin-right: auto;
+    color : greenyellow;
+    margin-bottom : 1px;
+}
+
+.dept{
+    margin-right: auto;
+    margin-bottom : 1px;
+}
+
+.year{
+    margin-right: auto;
+    margin-bottom : 1px;
+    color: pink;
+}
+

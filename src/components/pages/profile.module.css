@@ -69,3 +69,7 @@ h3{
     display: flex;
     justify-content: center;
 }
+
+.year{
+    color :palegoldenrod;
+}

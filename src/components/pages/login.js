@@ -5,6 +5,7 @@ import { useDispatch } from "react-redux";
 import {login} from '../features/userSlice';
 import {Link} from 'react-router-dom';
 import logincss from './login.module.css';
+import Spinner from "../ui/Spinner";
 const Login = ()=>{
     let navigate = useNavigate();
     let [username, setUserName] = useState('');
@@ -17,7 +18,6 @@ const Login = ()=>{
     const submitHandler = async e=>{
         setIsLoading(true);
         e.preventDefault();
-        if(username.length === 0 || password.length === 0) return;
         const res = await axios.post(URL, {username, password});
         if(res.data.status === 1){
             setTimeout(()=>{
@@ -50,7 +50,7 @@ const Login = ()=>{
         <label>Password</label>
         <input value = {password} type="password" placeholder="Password" onChange = {e=>setPassword(e.target.value)}/>
 
-        {isLoading?<p>Logging In...</p>:<button type = "submit">Log In</button>}
+        {isLoading?<Spinner/>:<button type = "submit">Log In</button>}
         <Link to = "/register"><div className={logincss.link}>Not a User? Register Here</div></Link>
     </form>
     </div>

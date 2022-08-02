@@ -22,7 +22,10 @@ const userSchema = new mongoose.Schema({
         type : 'String',
         required : 'true'
     },
-    comments : [{type : mongoose.Schema.Types.ObjectId, ref : 'Comments'}]
+    year : {
+        type : 'Number',
+        required : true
+    }
 });
 
 const User = new mongoose.model('User', userSchema);

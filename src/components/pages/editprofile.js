@@ -14,6 +14,7 @@ const EditProfile = ()=>{
     let [name, setName] = useState(user.name);
     let [dept, setDept] = useState(user.department);
     let [desc, setDesc] = useState(user.description);
+    let [year, setYear] = useState(user.year);
 
     let URL = 'http://localhost:3002/user/edit';
     const options = [
@@ -36,11 +37,11 @@ const EditProfile = ()=>{
       ];
     const submitHandler = async e=>{
         e.preventDefault();
-        if(!name || !desc ){
+        if(!name || !desc || !year || !dept){
           alert('Input Field cannot be empty');
           return;
         }
-        const res = await axios.post(URL, {id : user._id, name, description : desc, department : dept});
+        const res = await axios.post(URL, {id : user._id, name, description : desc, department : dept, year});
         dispatch(
             login({
                 _id : user._id,
@@ -49,6 +50,7 @@ const EditProfile = ()=>{
                 department : dept,
                 description : desc,
                 loggedIn : true,
+                year
             })
         );
         if(res.data.status === 0){
@@ -74,6 +76,9 @@ const EditProfile = ()=>{
               <option value={option.value}>{option.label}</option>
             ))}
           </select>
+
+        <label>Year</label>
+        <input value ={year} type="text" placeholder="Year of Joining" onChange = {e=>setYear(parseInt(e.target.value))}/>
         
         <label>Description</label>
         <textarea className={regcss.description} placeholder = "Describe Yourself" value = {desc} onChange = {e=> setDesc(e.target.value)}></textarea>
