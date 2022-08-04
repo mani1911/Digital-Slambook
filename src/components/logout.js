@@ -9,6 +9,7 @@ const Logout = ()=>{
     const dispatch = useDispatch();
     const logoutHandler = async ()=>{
         dispatch(logout());
+        alert('Successfully Loggded Out');
         const res = await axios.post('http://localhost:3002/user/logout');
 
     }
