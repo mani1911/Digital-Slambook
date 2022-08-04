@@ -11,7 +11,7 @@ const Login = ()=>{
     let [username, setUserName] = useState('');
     let [password, setPassword] = useState('');
     let [isLoading , setIsLoading] = useState(false);
-    let URL = 'http://localhost:3002/user/login';
+    let URL = 'https://slambook01.herokuapp.com/user/login';
 
     const dispatch = useDispatch();
 

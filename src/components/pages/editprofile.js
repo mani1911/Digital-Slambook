@@ -16,7 +16,7 @@ const EditProfile = ()=>{
     let [desc, setDesc] = useState(user.description);
     let [year, setYear] = useState(user.year);
 
-    let URL = 'http://localhost:3002/user/edit';
+    let URL = 'https://slambook01.herokuapp.com/user/edit';
     const options = [
         {
           label: "CSE",

@@ -21,7 +21,6 @@ userRoute.post('/reg', async (req,res)=>{
         let status = 0;
         if(existing.length > 0){
             message = 'User Already Exists';
-            console.log(message);
         }
         else if(!username || !name || !password || ! description || !department || !year){
             message = 'Input Field cannot be Empty';

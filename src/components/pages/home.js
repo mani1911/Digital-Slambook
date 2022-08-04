@@ -12,7 +12,7 @@ const Home = ()=>{
     useEffect(()=>{
         setIsLoading(true);
         async function getFunction(){
-            const res = await axios.get('http://localhost:3002/user');
+            const res = await axios.get('https://slambook01.herokuapp.com/user');
             setResArray(res.data.data);
             setFilteredArray(res.data.data);
         }

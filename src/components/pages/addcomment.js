@@ -19,7 +19,7 @@ const AddComment = (props)=>{
     },[]);
     const submitHandler = async e=>{
         e.preventDefault();
-        const res = axios.post('http://localhost:3002/comments/new',{...state.state, comment});
+        const res = axios.post('https://slambook01.herokuapp.com/new',{...state.state, comment});
         navigate(`/profile/${state.state.parentID}`);
 
     }

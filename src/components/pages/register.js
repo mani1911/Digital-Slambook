@@ -14,7 +14,7 @@ const Register = ()=>{
     let [isLoading, setIsLoading] = useState(false);
     let [year, setYear] = useState('');
 
-    let URL = 'http://localhost:3002/user/reg';
+    let URL = 'https://slambook01.herokuapp.com/user/reg';
     const options = [
         {
           label: "CSE",

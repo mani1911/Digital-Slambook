@@ -10,7 +10,7 @@ const Logout = ()=>{
     const logoutHandler = async ()=>{
         dispatch(logout());
         alert('Successfully Loggded Out');
-        const res = await axios.post('http://localhost:3002/user/logout');
+        const res = await axios.post('https://slambook01.herokuapp.com/user/logout');
 
     }
     return<div className= {classes.cont}>

@@ -16,7 +16,7 @@ const ViewProfile = (props)=>{
     const user = useSelector(selectUser);
     useEffect(()=>{
         async function check(){
-            const res = await axios.get(`http://localhost:3002/user/${id}`);
+            const res = await axios.get(`https://slambook01.herokuapp.com/user/${id}`);
             setUserProfile(res.data.user[0]);
         }
         check();
