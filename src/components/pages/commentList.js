@@ -9,7 +9,7 @@ const CommentList = (props)=>{
     const [commentList, getCommentList] = useState([]);
     const deleteHandler = async(details)=>{
         if(details.userID === user._id || details.parentID === user._id){
-            const res = await axios.post(`http://localhost:3002/comments/delete/${details.id}`);
+            const res = await axios.post(`https://slambook01.herokuapp.com/comments/delete/${details.id}`);
             const filteredCommentList = commentList.filter(comment => comment._id !== details.id);
             getCommentList(filteredCommentList);
             console.log(res.data)
