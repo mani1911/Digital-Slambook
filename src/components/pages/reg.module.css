@@ -127,3 +127,19 @@ select>option{
 .description::-webkit-scrollbar { 
     display: none;
 }
+
+.link{
+    color: rgb(206, 253, 253);
+    margin-top: 1.7rem;
+    text-decoration: none;
+}
+
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+input[type=number] {
+  -moz-appearance: textfield;
+}

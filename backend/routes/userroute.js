@@ -22,7 +22,10 @@ userRoute.post('/reg', async (req,res)=>{
         if(existing.length > 0){
             message = 'User Already Exists';
         }
-        else if(!username || !name || !password || ! description || !department || !year){
+        else if(password.length < 8){
+            message = 'Password requires Minimum 8 Characters';
+        }
+        else if(!username || !name || !password || !description || !department || !year){
             message = 'Input Field cannot be Empty';
         }
         else{

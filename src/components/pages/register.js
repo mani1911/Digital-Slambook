@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import axios from 'axios';
 import regcss from './reg.module.css'
-import {useNavigate} from 'react-router-dom';
+import {useNavigate, Link} from 'react-router-dom';
 import Spinner from "../ui/Spinner";
 
 const Register = ()=>{
@@ -85,7 +85,7 @@ const Register = ()=>{
         <input value = {password} type="password" placeholder="Password" id="password" onChange = {e=>setPassword(e.target.value)}/>
 
         <label>Year</label>
-        <input value ={year} type="text" placeholder="Year of Joining" onChange = {e=>setYear(parseInt(e.target.value))}/>
+        <input value ={year} type="number" placeholder="Year of Joining" onChange = {e=>setYear(parseInt(e.target.value))}/>
 
         <label>Department</label>
         <select value = {dept} onChange = {e=>setDept(e.target.value)}>
@@ -96,6 +96,7 @@ const Register = ()=>{
         
         <label>Description</label>
         <textarea placeholder = "Describe Yourself" value = {desc} onChange = {e=> setDesc(e.target.value)}></textarea>
+        <Link to = "/login"><div className={regcss.link}>Already a User? Login Here</div></Link>
 
         {isLoading?<Spinner/>:<button type = "submit">Register</button>}
     </form>
