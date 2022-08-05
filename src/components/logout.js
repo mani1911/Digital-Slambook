@@ -1,15 +1,14 @@
-import React from "react";
+import React, {useState} from "react";
 import axios from "axios";
 import {Link} from 'react-router-dom';
 import { useDispatch } from "react-redux/es/exports";
 import { logout } from "./features/userSlice";
-import classes from './logout.module.css'
+import classes from './logout.module.css';
 
 const Logout = ()=>{
     const dispatch = useDispatch();
     const logoutHandler = async ()=>{
         dispatch(logout());
-        alert('Successfully Loggded Out');
         const res = await axios.post('https://slambook01.herokuapp.com/user/logout');
 
     }

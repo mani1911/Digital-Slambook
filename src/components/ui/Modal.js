@@ -1,23 +1,23 @@
-import React, {useState} from "react";
+import React from "react";
 import modal from './Modal.module.css';
+import ReactDOM  from 'react-dom';
 
-const Modal = (props)=>{
-    const [modal, setModal] = useState(false);
+const Modal = (props)=>{   
+    if(!props.open) return null; 
+    console.log('Modal Open')
     const toggleModal = ()=>{
-        setModal(mode => !mode);
+        props.toggleModal(false);
+        return null;
     }
-    return <div className={modal.modal}>
-        <div className={modal.overlay}>
+    return ReactDOM.createPortal(<div className={modal.overlay} onClick = {toggleModal}>
+        <div className={modal.modal}>
             <div className={modal.content}>
-                <h2>
-                    Modal
-                </h2>
                 <p>
-                    Test text
+                    {props.message}
                 </p>
                 <button className={modal.close} onClick = {toggleModal}>Close</button>
             </div>
         </div>
-    </div>
+    </div>,document.getElementById('portal'))
 }
 export default Modal;

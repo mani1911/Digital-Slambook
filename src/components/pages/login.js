@@ -6,8 +6,11 @@ import {login} from '../features/userSlice';
 import {Link} from 'react-router-dom';
 import logincss from './login.module.css';
 import Spinner from "../ui/Spinner";
+import Modal from "../ui/Modal";
 const Login = ()=>{
     let navigate = useNavigate();
+    let [message, setMessage] = useState('');
+    let [openModal, setOpenModal] = useState(false);
     let [username, setUserName] = useState('');
     let [password, setPassword] = useState('');
     let [isLoading , setIsLoading] = useState(false);
@@ -32,13 +35,15 @@ const Login = ()=>{
             },2000);
         }
         else{
+            setMessage(res.data.message);
+            setOpenModal(true);
             setIsLoading(false);
             setUserName('');
             setPassword('');
-            alert(res.data.message)
         }
     }
     return <div className="body">
+    {openModal? <Modal open = {openModal} message = {message} toggleModal = {()=> setOpenModal(false)} /> : null}
     <div className={logincss.background}>
     </div>
     <form onSubmit={submitHandler}>

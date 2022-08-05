@@ -3,9 +3,12 @@ import axios from 'axios';
 import regcss from './reg.module.css'
 import {useNavigate, Link} from 'react-router-dom';
 import Spinner from "../ui/Spinner";
+import Modal from "../ui/Modal";
 
 const Register = ()=>{
     const navigate = useNavigate();
+    let [message, setMessage] = useState('');
+    let [openModal, setOpenModal] = useState(false);
     let [username, setUserName] = useState('');
     let [password, setPassword] = useState('');
     let [name, setName] = useState('');
@@ -48,12 +51,12 @@ const Register = ()=>{
     const submitHandler = async e=>{
         setIsLoading(true);
         e.preventDefault();
-        if(username.length === 0 || password.length === 0) return;
         const res = await axios.post(URL, {username, password,name, description : desc, department : dept, year});
         console.log(res.data.message);
         if(res.data.status === 0){
-            alert(res.data.message)
-            setIsLoading(false);
+            setMessage(res.data.message);
+            setOpenModal(true);
+            setIsLoading(false)
         }
         else{
           setTimeout(()=>{
@@ -67,9 +70,9 @@ const Register = ()=>{
             navigate('/login');
           },2000)
         }
-
     }
     return <div className="body">
+    {openModal? <Modal open = {openModal} message = {message} toggleModal = {()=> setOpenModal(false)} /> : null}
     <div className={regcss.background}>
     </div>
     <form onSubmit={submitHandler}>
@@ -96,7 +99,7 @@ const Register = ()=>{
         
         <label>Description</label>
         <textarea placeholder = "Describe Yourself" value = {desc} onChange = {e=> setDesc(e.target.value)}></textarea>
-        <Link to = "/login"><div className={regcss.link}>Already a User? Login Here</div></Link>
+        <Link to = "/login"><div className={regcss.link}>Already a User? Login here</div></Link>
 
         {isLoading?<Spinner/>:<button type = "submit">Register</button>}
     </form>
