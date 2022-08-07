@@ -6,7 +6,17 @@ import cookieParser from "cookie-parser";
 import userRoute from './routes/userroute.js';
 import commentRoute from './routes/commentroute.js';
 import dotenv from 'dotenv';
+import multer from "multer";
 
+const storage = multer.diskStorage({
+    destination : (req,file,cb)=>{
+        cb(null, './images')
+    },
+    filename : (req,file, cb)=>{
+        console.log(file)
+    }
+})
+const upload = multer({storage  :storage});
 const app = Express();
 const Port = process.env.PORT || 3002;
 const URL = 'mongodb+srv://mani19112003:mani19112003@cluster0.bj3en.mongodb.net/?retryWrites=true&w=majority';
@@ -22,7 +32,6 @@ app.use(bodyParser.urlencoded({
 
   app.use('/user', userRoute);
   app.use('/comments', commentRoute);
-
 
 
 mongoose.connect(URL, {useNewUrlParser : true, useUnifiedTopology : true})
