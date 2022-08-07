@@ -26,7 +26,7 @@ const CommentList = (props)=>{
     }
     useEffect(()=>{
         async function getComments(){
-            let res = await axios.get(`http://localhost:3002/comments/${props.userID}`);
+            let res = await axios.get(`https://slambook01.herokuapp.com/comments/${props.userID}`);
             getCommentList(res.data.comments);
         }
         getComments();
