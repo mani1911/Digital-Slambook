@@ -1,11 +1,11 @@
 import React, { useState } from "react";
 import axios from 'axios';
-import regcss from './reg.module.css'
+import regcss from '../auth/reg.module.css'
 import {useNavigate} from 'react-router-dom';
 import { useSelector } from "react-redux";
-import { selectUser } from "../features/userSlice";
+import { selectUser } from "../../features/userSlice";
 import { useDispatch } from "react-redux";
-import { login } from "../features/userSlice";
+import { login } from "../../features/userSlice";
 
 const EditProfile = ()=>{
     const user = useSelector(selectUser);
@@ -15,6 +15,7 @@ const EditProfile = ()=>{
     let [dept, setDept] = useState(user.department);
     let [desc, setDesc] = useState(user.description);
     let [year, setYear] = useState(user.year);
+    let [image, setImage] = useState();
 
     let URL = 'https://slambook01.herokuapp.com/user/edit';
     const options = [
@@ -41,7 +42,14 @@ const EditProfile = ()=>{
           alert('Input Field cannot be empty');
           return;
         }
-        const res = await axios.post(URL, {id : user._id, name, description : desc, department : dept, year});
+        const fd = new FormData();
+        fd.append('name', name);
+        fd.append('id', user._id);
+        fd.append('department', dept);
+        fd.append('description', desc);
+        fd.append('image', image);
+        fd.append('year', year);
+        const res = await axios.post(URL, fd);
         dispatch(
             login({
                 _id : user._id,
@@ -50,6 +58,7 @@ const EditProfile = ()=>{
                 department : dept,
                 description : desc,
                 loggedIn : true,
+                image,
                 year
             })
         );
@@ -57,7 +66,7 @@ const EditProfile = ()=>{
             alert(res.data.message)
         }
         else{
-            navigate('/profile');
+            navigate('/login');
         }
 
     }
@@ -76,6 +85,9 @@ const EditProfile = ()=>{
               <option value={option.value}>{option.label}</option>
             ))}
           </select>
+
+        <label>Choose Image</label>
+        <input type="file" filename = "image" onChange = {e=>setImage(e.target.files[0])}/>
 
         <label>Year</label>
         <input value ={year} type="text" placeholder="Year of Joining" onChange = {e=>setYear(parseInt(e.target.value))}/>

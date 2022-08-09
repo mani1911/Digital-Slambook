@@ -2,8 +2,8 @@ import React, { useState } from "react";
 import axios from 'axios';
 import regcss from './reg.module.css'
 import {useNavigate, Link} from 'react-router-dom';
-import Spinner from "../ui/Spinner";
-import Modal from "../ui/Modal";
+import Spinner from "../.././ui/Spinner";
+import Modal from "../.././ui/Modal";
 
 const Register = ()=>{
     const navigate = useNavigate();
@@ -16,6 +16,7 @@ const Register = ()=>{
     let [desc, setDesc] = useState('');
     let [isLoading, setIsLoading] = useState(false);
     let [year, setYear] = useState('');
+    let [image, setImage] = useState('');
 
     let URL = 'https://slambook01.herokuapp.com/user/reg';
     const options = [
@@ -51,7 +52,15 @@ const Register = ()=>{
     const submitHandler = async e=>{
         setIsLoading(true);
         e.preventDefault();
-        const res = await axios.post(URL, {username, password,name, description : desc, department : dept, year});
+        const fd = new FormData();
+        fd.append('username', username);
+        fd.append('name', name);
+        fd.append('password', password);
+        fd.append('department', dept);
+        fd.append('description', desc);
+        fd.append('image', image);
+        fd.append('year', year);
+        const res = await axios.post(URL, fd);
         console.log(res.data.message);
         if(res.data.status === 0){
             setMessage(res.data.message);
@@ -75,7 +84,7 @@ const Register = ()=>{
     {openModal? <Modal open = {openModal} message = {message} toggleModal = {()=> setOpenModal(false)} /> : null}
     <div className={regcss.background}>
     </div>
-    <form onSubmit={submitHandler}>
+    <form onSubmit={submitHandler} encType = "multipart/form-data">
         <h3>Register</h3>
 
         <label>Username</label>
@@ -96,7 +105,10 @@ const Register = ()=>{
               <option value={option.value}>{option.label}</option>
             ))}
           </select>
-        
+
+        <label>Choose Image</label>
+        <input type="file" filename = "image" onChange = {e=>setImage(e.target.files[0])}/>
+
         <label>Description</label>
         <textarea placeholder = "Describe Yourself" value = {desc} onChange = {e=> setDesc(e.target.value)}></textarea>
         <Link to = "/login"><div className={regcss.link}>Already a User? Login here</div></Link>

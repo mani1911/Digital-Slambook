@@ -2,6 +2,18 @@ import Express from "express";
 import bcrypt from 'bcrypt';
 const userRoute = Express.Router();
 import User from '../models/user.js';
+import multer from "multer";
+import fs from 'fs';
+
+const storage = multer.diskStorage({
+    destination : (req,file,cb)=>{
+        cb(null, 'uploads')
+    },
+    filename : (req,file, cb)=>{
+        cb(null, file.originalname)
+    }
+})
+const upload = multer({storage  :storage});
 
 userRoute.get('/',async (req,res)=>{
     try{
@@ -13,9 +25,13 @@ userRoute.get('/',async (req,res)=>{
     }
 
 })
-userRoute.post('/reg', async (req,res)=>{
+userRoute.post('/reg',upload.single('image'), async (req,res)=>{
     try{
         const { username, name, password , description, department ,year} = req.body;
+        const image = {
+            data : fs.readFileSync('uploads/' + req.file.filename),
+            contentType : "image/png"
+        }
         const existing = await User.find({username});
         let message = '';
         let status = 0;
@@ -30,7 +46,7 @@ userRoute.post('/reg', async (req,res)=>{
         }
         else{
             const hash = await bcrypt.hash(password,12);
-            const newUser = new User({username,password : hash,name, description, department, year});
+            const newUser = new User({username,password : hash,name, description, department, year, image});
             await newUser.save();
             message = 'User Registered';
             status = 1;
@@ -93,14 +109,22 @@ userRoute.get('/:id', async (req,res)=>{
 
 })
 
-userRoute.post('/edit', async (req,res)=>{
+userRoute.post('/edit',upload.single('image'),async (req,res)=>{
     try{
         const {id,name,department, description ,year} = req.body;
+        const image = {
+            data : fs.readFileSync('uploads/' + req.file.filename),
+            contentType : "image/png"
+        }
         if(!id || !name || !department || !description || !year){
             return;
         }
-
-        const user = await User.findOneAndUpdate({_id :id}, {name, department, description, year});
+        if(image){
+            const user = await User.findOneAndUpdate({_id :id}, {name, department, description, year, image});
+        }
+        else{
+            const user = await User.findOneAndUpdate({_id :id}, {name, department, description, year});
+        }
         res.json({message : 'Changes Successfully Updated'});
     }
     catch(e){

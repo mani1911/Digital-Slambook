@@ -3,7 +3,7 @@ import axios from 'axios';
 import ac from './addcomment.module.css'
 import {useNavigate} from 'react-router-dom';
 import { useSelector } from "react-redux";
-import { selectUser } from "../features/userSlice";
+import { selectUser } from "../../features/userSlice";
 import { useParams, useLocation } from "react-router-dom";
 
 

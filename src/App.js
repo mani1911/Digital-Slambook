@@ -1,13 +1,13 @@
 import './App.css';
 import { BrowserRouter, Route ,Routes} from 'react-router-dom';
-import Register from './components/pages/register';
-import Login from './components/pages/login';
+import Register from './components/pages/auth/register';
+import Login from './components/pages/auth/login';
 import Header from './components/header';
-import Home from './components/pages/home';
-import Profile from './components/pages/profile';
-import ViewProfile from './components/pages/viewprofile';
-import EditProfile from './components/pages/editprofile';
-import AddComment from './components/pages/addcomment';
+import Home from './components/pages/home/home';
+import Profile from './components/pages/profile/profile';
+import ViewProfile from './components/pages/profile/viewprofile';
+import EditProfile from './components/pages/profile/editprofile';
+import AddComment from './components/pages/comments/addcomment';
 function App() {
   return (
     <div className="App">

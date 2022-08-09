@@ -2,7 +2,7 @@ import React from "react";
 import {Link} from "react-router-dom";
 import classes from './comment.module.css';
 import { useSelector } from "react-redux";
-import { selectUser } from "../features/userSlice";
+import { selectUser } from "../../features/userSlice";
 import { BsFillTrashFill } from "react-icons/bs";
 const Comment = (props)=>{
     const user = useSelector(selectUser);
@@ -11,7 +11,6 @@ const Comment = (props)=>{
     const month = time.getMonth();
     const day = time.getDate();
     const date = `${day}-${month+1}-${year}`;
-    console.log(date);
 
     const deleteHandler = ()=>{
         const details = {userID : props.userID, parentID : props.parentID, id : props.id};

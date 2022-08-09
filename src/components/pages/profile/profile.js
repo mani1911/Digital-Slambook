@@ -1,20 +1,26 @@
 import React, { useEffect } from "react";
 import { useSelector } from "react-redux/es/exports";
-import { selectUser } from "../features/userSlice";
+import { selectUser } from "../../features/userSlice";
 import {useNavigate} from 'react-router-dom';
-import img from '../assets/userImage.png';
+import img from '../../assets/userImage.png'
 import classes from './profile.module.css';
-import CommentList from "./commentList";
-import axios from 'axios';
+import CommentList from "../comments/commentList";
 import { BiEditAlt } from "react-icons/bi";
 const Profile = ()=>{
     const navigate = useNavigate();
     const user = useSelector(selectUser);
+    let base64String = null;
     useEffect(()=>{
         if(user.loggedIn === false){
             navigate('/login');
         }
     },[])
+    if(user.image){
+        base64String = btoa(new Uint8Array(user.image.data.data).reduce(function (data, byte) {
+            return data + String.fromCharCode(byte);
+        }, ''));
+    }
+
 
     const editHandler = ()=>{
         navigate('/profile/edit');
@@ -23,7 +29,7 @@ const Profile = ()=>{
         <div className = {classes.details}>
             <h1>User Profile</h1>
             <div className={classes.im}>
-                <img src= {img}/>
+                {!base64String?<img src= {img}/> : <img src = {`data:image/png; base64,${base64String}`}/>}
                 <BiEditAlt onClick = {editHandler} className={classes.icon}/>
             </div>
 
