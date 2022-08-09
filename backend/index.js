@@ -5,7 +5,7 @@ import mongoose from "mongoose";
 import cookieParser from "cookie-parser";
 import userRoute from './routes/userroute.js';
 import commentRoute from './routes/commentroute.js';
-import dotenv from 'dotenv';
+
 
 const app = Express();
 const Port = process.env.PORT || 3002;
