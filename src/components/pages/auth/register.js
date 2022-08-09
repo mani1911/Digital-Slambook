@@ -68,7 +68,6 @@ const Register = ()=>{
             setIsLoading(false)
         }
         else{
-          setTimeout(()=>{
             setName('');
             setPassword('');
             setUserName('');
@@ -77,8 +76,7 @@ const Register = ()=>{
             setIsLoading(false);
             setYear('');
             navigate('/login');
-          },2000)
-        }
+          }
     }
     return <div className="body">
     {openModal? <Modal open = {openModal} message = {message} toggleModal = {()=> setOpenModal(false)} /> : null}

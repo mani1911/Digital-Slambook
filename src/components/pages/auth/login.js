@@ -23,16 +23,14 @@ const Login = ()=>{
         e.preventDefault();
         const res = await axios.post(URL, {username, password});
         if(res.data.status === 1){
-            setTimeout(()=>{
-                setIsLoading(false);
-                navigate(`/profile`);
-                dispatch(
-                    login({
-                        ...res.data.user,
-                        loggedIn : true,
-                    })
-                );
-            },2000);
+            setIsLoading(false);
+            navigate(`/profile`);
+            dispatch(
+                login({
+                    ...res.data.user,
+                    loggedIn : true,
+                })
+            );
         }
         else{
             setMessage(res.data.message);
